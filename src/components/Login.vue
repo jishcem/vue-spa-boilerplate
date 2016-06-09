@@ -40,15 +40,15 @@
     },
     methods: {
       login () {
-        if (
-          (this.email === 'jishcem@gmail.com') &&
-          (this.password === 'asdasd')
-        ) {
-          window.localStorage.setItem('authenticated', true)
-          this.$router.go('home')
-        } else {
-          this.error = true
-        }
+        this.$http.post('http://vueprojectserver.dev/api/login', {}).then((response) => {
+          if (response.ok) {
+            this.$dispatch('userLoggedIn', response.data.user)
+            window.localStorage.setItem('authenticated', response.data.token)
+            this.$router.go('/home')
+          } else {
+            this.error = true
+          }
+        })
       }
     }
   }

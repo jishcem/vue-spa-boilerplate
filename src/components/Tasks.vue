@@ -38,7 +38,7 @@
 
     methods: {
       getTasks () {
-        this.$http.get('http://vueprojectserver.dev/tasks', (response) => {
+        this.$http.get('http://vueprojectserver.dev/api/tasks', (response) => {
           this.tasks = response
         })
       }
