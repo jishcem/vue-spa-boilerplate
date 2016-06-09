@@ -40,7 +40,7 @@
     },
     methods: {
       login () {
-        this.$http.post('http://vueprojectserver.dev/api/login', {}).then((response) => {
+        this.$http.post('http://vueprojectserver.dev/api/login', { email: this.email, password: this.password }).then((response) => {
           if (response.ok) {
             this.$dispatch('userLoggedIn', response.data.user)
             window.localStorage.setItem('authenticated', response.data.token)
@@ -48,6 +48,8 @@
           } else {
             this.error = true
           }
+        }).catch(() => {
+          this.error = true
         })
       }
     }
