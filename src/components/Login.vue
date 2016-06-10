@@ -38,12 +38,13 @@
         error: false
       }
     },
+
     methods: {
       login () {
         this.$http.post('http://vueprojectserver.dev/api/login', { email: this.email, password: this.password }).then((response) => {
           if (response.ok) {
+            window.localStorage.setItem('jwt-token', response.data.token)
             this.$dispatch('userLoggedIn', response.data.user)
-            window.localStorage.setItem('authenticated', response.data.token)
             this.$router.go('/home')
           } else {
             this.error = true

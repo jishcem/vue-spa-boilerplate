@@ -24,15 +24,18 @@
           <li>
             <a v-link="{ path: '/tasks' }">Tasks</a>
           </li>
-          <li v-show="! userAuthenticated">
+          <li v-show="! $root.authenticated">
             <a v-link="{ path: '/login' }">Login</a>
           </li>
         </ul>
 
-        <ul v-show="userAuthenticated" class="nav navbar-nav navbar-right">
+        <ul v-if="$root.authenticated" class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-              User
+              <span>
+                {{ $root.user.name }}
+              </span>
+              <img v-bind:src="$root.user.gravatar" alt="" class="img-responsive gravatar">
               <span class="caret"></span>
             </a>
 
@@ -50,17 +53,16 @@
     </div>
   </nav>
 </template>
+<style lang="sass" scoped>
+  .gravatar
+    height: 25px
+    display: inline-block
+</style>
 <script>
   export default {
     data () {
       return {
         authenticated: false
-      }
-    },
-
-    computed: {
-      userAuthenticated () {
-        return window.localStorage.getItem('authenticated')
       }
     }
   }

@@ -1,7 +1,7 @@
 <script>
   export default {
     ready () {
-      window.localStorage.removeItem('authenticated')
+      this.$dispatch('userLoggedOut')
       this.$router.go('home')
     }
   }

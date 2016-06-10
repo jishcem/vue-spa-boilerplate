@@ -1,15 +1,27 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-require('bootstrap/dist/css/bootstrap.css')
+import App from './App'
+
 window.jQuery = window.$ = require('jquery/dist/jquery')
 require('bootstrap')
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
-var VueApp = Vue.extend({})
+var VueApp = Vue.extend(App)
 var router = new VueRouter()
+
+// Set Auth Headers for every requests
+Vue.http.interceptors.push({
+  request (request) {
+    request.headers['Authorization'] = 'Bearer ' + window.localStorage.getItem('jwt-token')
+    return request
+  },
+  response (response) {
+    return response
+  }
+})
 
 import Home from 'components/Home'
 import About from 'components/About'
@@ -18,8 +30,6 @@ import Login from 'components/Login'
 import Logout from 'components/Logout'
 import _404 from 'components/404'
 import Tasks from 'components/Tasks'
-
-require('./styles/all.sass')
 
 router.map({
   '/': {
@@ -56,11 +66,11 @@ router.map({
   }
 })
 
-router.start(VueApp, 'body')
+router.start(VueApp, '#app')
 
 router.beforeEach(function (transition) {
   if (transition.to.auth) {
-    if (window.localStorage.getItem('authenticated')) {
+    if (window.localStorage.getItem('jwt-token')) {
       transition.next()
     } else {
       transition.redirect('/login')
