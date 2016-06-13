@@ -8,8 +8,7 @@
   export default {
     ready () {
       this.$on('userLoggedIn', (user) => {
-        this.user = user
-        this.login()
+        this.login(user)
       })
 
       this.$on('userLoggedOut', () => {
@@ -18,27 +17,43 @@
 
       var token = window.localStorage.getItem('jwt-token')
       if (token !== null && token !== 'undefined') {
-        this.$http.get('http://vueprojectserver.dev/api/me', {}).then((response) => {
-          console.log(response)
-        }).catch((err) => { console.log(err) })
+        this.tryLogin()
       }
     },
 
     data () {
       return {
         user: null,
-        authenticated: null
+        authenticated: null,
+        serverUrl: 'http://vueprojectserver.dev/api/'
       }
     },
 
     methods: {
-      login () {
+      login (user) {
+        this.user = user
         this.authenticated = true
       },
 
       logout () {
         this.authenticated = false
         window.localStorage.removeItem('jwt-token')
+      },
+
+      tryLogin () {
+        this.$http.post('http://vueprojectserver.dev/api/me', {}).then((response) => this.login(response.data))
+        .catch((err) => {
+          if (err.data.error.toString() === 'token_expired') this.refreshUser()
+        })
+      },
+
+      refreshUser () {
+        this.$http.post('http://vueprojectserver.dev/api/refresh-token', {}).then((response) => {
+          if (response.headers('Authorization').startsWith('Bearer ')) {
+            window.localStorage.setItem('jwt-token', response.headers('Authorization').slice('Bearer '.length))
+            this.tryLogin()
+          }
+        }).catch((err) => { console.log(err) })
       }
     }
   }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import App from './App'
+import routes from './routes'
 
 window.jQuery = window.$ = require('jquery/dist/jquery')
 require('bootstrap')
@@ -23,48 +24,7 @@ Vue.http.interceptors.push({
   }
 })
 
-import Home from 'components/Home'
-import About from 'components/About'
-import Contact from 'components/Contact'
-import Login from 'components/Login'
-import Logout from 'components/Logout'
-import _404 from 'components/404'
-import Tasks from 'components/Tasks'
-
-router.map({
-  '/': {
-    component: Home,
-    auth: false
-  },
-  '/home': {
-    component: Home,
-    auth: false
-  },
-  '/about': {
-    component: About,
-    auth: false
-  },
-  '/contact': {
-    component: Contact,
-    auth: false
-  },
-  '/login': {
-    component: Login,
-    auth: false
-  },
-  '/logout': {
-    component: Logout,
-    auth: false
-  },
-  '/tasks': {
-    component: Tasks,
-    auth: true
-  },
-  '*': {
-    component: _404,
-    auth: false
-  }
-})
+router.map(routes)
 
 router.start(VueApp, '#app')
 

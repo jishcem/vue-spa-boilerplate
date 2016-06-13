@@ -22,7 +22,7 @@
             <a v-link="{ path: '/contact' }">Contact</a>
           </li>
           <li>
-            <a v-link="{ path: '/tasks' }">Tasks</a>
+            <a v-link="{ path: '/task' }">Tasks</a>
           </li>
           <li v-show="! $root.authenticated">
             <a v-link="{ path: '/login' }">Login</a>
