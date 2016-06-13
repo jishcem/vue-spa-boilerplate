@@ -6,6 +6,7 @@ import Logout from 'components/Logout'
 import _404 from 'components/404'
 import Tasks from 'components/Task/Tasks'
 import TaskCreate from 'components/Task/Create'
+import TaskEdit from 'components/Task/Edit'
 
 export default {
   '/': {
@@ -38,6 +39,10 @@ export default {
   },
   '/task/create': {
     component: TaskCreate,
+    auth: true
+  },
+  '/task/edit/:id': {
+    component: TaskEdit,
     auth: true
   },
   '*': {
