@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-view class="view" transition="test" transition-mode="out" keep-alive></router-view>
+    <router-view keep-alive></router-view>
   </div>
 </template>
 <style src="./styles/all.sass" lang="sass"></style>

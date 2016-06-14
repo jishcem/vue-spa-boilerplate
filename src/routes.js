@@ -7,6 +7,7 @@ import _404 from 'components/404'
 import Tasks from 'components/Task/Tasks'
 import TaskCreate from 'components/Task/Create'
 import TaskEdit from 'components/Task/Edit'
+import NProgress from 'nprogress'
 
 export default function configRouter (router) {
   router.map({
@@ -60,7 +61,12 @@ export default function configRouter (router) {
         transition.redirect('/login')
       }
     } else {
+      NProgress.start()
       transition.next()
     }
+  })
+
+  router.afterEach(function (transition) {
+    NProgress.done()
   })
 }
