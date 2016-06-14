@@ -1,8 +1,8 @@
-import _ from 'lodash'
+import {flatten, reduce} from 'lodash'
 
 export default {
   getErrorArray (errors) {
-    return _.flatten(_.reduce(errors, (result, value, key) => {
+    return flatten(reduce(errors, (result, value, key) => {
       result.push(value)
       return result
     }))

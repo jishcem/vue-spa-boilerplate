@@ -1,0 +1,15 @@
+.loading {
+  opacity: 1;
+  transition: opacity .8s ease-in-out;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  z-index: -1;
+}

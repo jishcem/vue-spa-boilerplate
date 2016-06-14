@@ -2,16 +2,20 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import App from './App'
-import routes from './routes'
+import configRouter from './routes'
 
 window.jQuery = window.$ = require('jquery/dist/jquery')
 require('bootstrap')
+require('../node_modules/nprogress/nprogress.css')
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
 var VueApp = Vue.extend(App)
-var router = new VueRouter()
+const router = new VueRouter({
+  history: true,
+  saveScrollPosition: true
+})
 
 // Set Auth Headers for every requests
 Vue.http.interceptors.push({
@@ -24,18 +28,6 @@ Vue.http.interceptors.push({
   }
 })
 
-router.map(routes)
+configRouter(router)
 
 router.start(VueApp, '#app')
-
-router.beforeEach(function (transition) {
-  if (transition.to.auth) {
-    if (window.localStorage.getItem('jwt-token')) {
-      transition.next()
-    } else {
-      transition.redirect('/login')
-    }
-  } else {
-    transition.next()
-  }
-})

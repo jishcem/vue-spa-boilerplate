@@ -1,9 +1,15 @@
 <template>
-  <app-header></app-header>
-  <p>
-    this is the home page
-  </p>
-  <app-footer></app-footer>
+  <div>
+    <app-header></app-header>
+    <div class="container">
+      <div class="row">
+        <p>
+          this is the home page
+        </p>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
 </template>
 <script>
   import AppHeader from '../components/template/AppHeader'
