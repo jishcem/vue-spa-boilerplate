@@ -22,6 +22,7 @@
   import AppHeader from '../template/AppHeader'
   import AppFooter from '../template/AppFooter'
   import Alert from '../template/Alert'
+  import NProgress from 'nprogress'
 
   export default {
     ready () {
@@ -38,21 +39,22 @@
 
     methods: {
       update () {
-        console.log('hi there')
+        NProgress.start()
+        this.$http.post(this.$root.serverUrl + 'task/update/' + this.$route.params.id, { name: this.task.name })
+          .then((response) => {
+            NProgress.done()
+            this.$router.go('/task')
+          })
       },
 
       fetchTask () {
+        NProgress.start()
         this.$http.post(this.$root.serverUrl + 'task/edit/' + this.$route.params.id, {})
-          .then(this.showSuccess)
-          .catch(this.showError)
-      },
-
-      showSuccess (response) {
-        this.task = response.data
-      },
-
-      showError (error) {
-        console.log(error)
+          .then((response) => {
+            NProgress.done()
+            this.task = response.data
+          })
+          .catch(() => NProgress.done())
       }
     },
 
