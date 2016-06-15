@@ -12,20 +12,20 @@
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li>
-            <a v-link="{ path: '/home' }">Home</a>
+          <li v-link-active>
+            <a v-link="{ path: '/home', activeClass: 'active' }">Home</a>
           </li>
-          <li>
-            <a v-link="{ path: '/about' }">About</a>
+          <li v-link-active>
+            <a v-link="{ path: '/about', activeClass: 'active' }">About</a>
           </li>
-          <li>
-            <a v-link="{ path: '/contact' }">Contact</a>
+          <li v-link-active>
+            <a v-link="{ path: '/contact', activeClass: 'active' }">Contact</a>
           </li>
-          <li>
-            <a v-link="{ path: '/task' }">Tasks</a>
+          <li v-link-active>
+            <a v-link="{ path: '/task', activeClass: 'active' }">Tasks</a>
           </li>
-          <li v-show="! $root.authenticated">
-            <a v-link="{ path: '/login' }">Login</a>
+          <li v-link-active v-show="! $root.authenticated">
+            <a v-link="{ path: '/login', activeClass: 'active' }">Login</a>
           </li>
         </ul>
 

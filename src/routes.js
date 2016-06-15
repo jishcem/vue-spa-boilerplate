@@ -5,6 +5,7 @@ import Login from 'components/Login'
 import Logout from 'components/Logout'
 import _404 from 'components/404'
 import Tasks from 'components/Task/Tasks'
+import TaskList from 'components/Task/List'
 import TaskCreate from 'components/Task/Create'
 import TaskEdit from 'components/Task/Edit'
 import NProgress from 'nprogress'
@@ -37,15 +38,18 @@ export default function configRouter (router) {
     },
     '/task': {
       component: Tasks,
-      auth: true
-    },
-    '/task/create': {
-      component: TaskCreate,
-      auth: true
-    },
-    '/task/edit/:id': {
-      component: TaskEdit,
-      auth: true
+      auth: true,
+      subRoutes: {
+        '/': {
+          component: TaskList
+        },
+        '/create': {
+          component: TaskCreate
+        },
+        '/edit/:id': {
+          component: TaskEdit
+        }
+      }
     },
     '*': {
       component: _404,
