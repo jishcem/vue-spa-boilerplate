@@ -1,6 +1,5 @@
 import Home from 'components/Home'
 import About from 'components/About'
-import Contact from 'components/Contact'
 import Login from 'components/Login'
 import Logout from 'components/Logout'
 import _404 from 'components/404'
@@ -22,10 +21,6 @@ export default function configRouter (router) {
     },
     '/about': {
       component: About,
-      auth: false
-    },
-    '/contact': {
-      component: Contact,
       auth: false
     },
     '/login': {

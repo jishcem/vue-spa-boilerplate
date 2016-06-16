@@ -10,7 +10,7 @@
         <label for="task_name">Task Name</label>
         <input v-model="task.name" type="text" class="form-control" id="task_name" placeholder="Task">
       </div>
-      <button type="submit" class="btn btn-primary save-button">Submit</button>
+      <button type="submit" class="btn btn-primary edit-button">Submit</button>
     </form>
   </div>
 </template>
@@ -40,6 +40,7 @@
     methods: {
       update () {
         NProgress.start()
+        window.$('.edit-button').button('loading')
         this.$http.post(this.$root.serverUrl + 'task/update/' + this.$route.params.id, { name: this.task.name })
           .then((response) => {
             NProgress.done()
@@ -51,10 +52,14 @@
         NProgress.start()
         this.$http.post(this.$root.serverUrl + 'task/edit/' + this.$route.params.id, {})
           .then((response) => {
+            window.$('.edit-button').button('reset')
             NProgress.done()
             this.task = response.data
           })
-          .catch(() => NProgress.done())
+          .catch(() => {
+            NProgress.done()
+            window.$('.edit-button').button('reset')
+          })
       }
     },
 
