@@ -7,6 +7,7 @@ import configRouter from './routes'
 window.jQuery = window.$ = require('jquery/dist/jquery')
 require('bootstrap')
 require('../node_modules/nprogress/nprogress.css')
+require('../node_modules/sweetalert/dist/sweetalert.css')
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
@@ -24,6 +25,9 @@ Vue.http.interceptors.push({
     return request
   },
   response (response) {
+    if (response.headers('Authorization') && response.headers('Authorization').startsWith('Bearer ')) {
+      window.localStorage.setItem('jwt-token', response.headers('Authorization').slice('Bearer '.length))
+    }
     return response
   }
 })

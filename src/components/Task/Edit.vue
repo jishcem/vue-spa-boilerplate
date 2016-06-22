@@ -3,7 +3,6 @@
     <div class="alert alert-danger errorList" v-if="errors">
       <div v-for="error in errors" role="alert">{{ error }}</div>
     </div>
-    <alert :message="successMessage"></alert>
     <h3>Edit Task - {{$route.params.id}}</h3>
     <form v-on:submit.prevent="update">
       <div class="form-group">
@@ -21,8 +20,9 @@
 <script>
   import AppHeader from '../template/AppHeader'
   import AppFooter from '../template/AppFooter'
-  import Alert from '../template/Alert'
+  import Utils from '../../utils'
   import NProgress from 'nprogress'
+  import swal from 'sweetalert'
 
   export default {
     ready () {
@@ -32,8 +32,7 @@
     data () {
       return {
         task: {},
-        errors: null,
-        successMessage: null
+        errors: null
       }
     },
 
@@ -44,7 +43,14 @@
         this.$http.post(this.$root.serverUrl + 'task/update/' + this.$route.params.id, { name: this.task.name })
           .then((response) => {
             NProgress.done()
+            this.task = {}
+            swal('Your task is updated successfully')
             this.$router.go('/task')
+          })
+          .catch((response) => {
+            this.errors = Utils.getErrorArray(response.data.errors)
+            NProgress.done()
+            window.$('.edit-button').button('reset')
           })
       },
 
@@ -56,7 +62,7 @@
             NProgress.done()
             this.task = response.data
           })
-          .catch(() => {
+          .catch((response) => {
             NProgress.done()
             window.$('.edit-button').button('reset')
           })
@@ -64,7 +70,7 @@
     },
 
     components: {
-      AppHeader, AppFooter, Alert
+      AppHeader, AppFooter
     }
   }
 </script>

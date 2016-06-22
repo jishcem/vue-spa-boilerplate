@@ -4,7 +4,6 @@
       <div class="alert alert-danger errorList" v-if="errors">
         <div v-for="error in errors" role="alert">{{ error }}</div>
       </div>
-      <alert :message="successMessage"></alert>
       <h3>Create New Task</h3>
       <form v-on:submit.prevent="create">
         <div class="form-group">
@@ -23,17 +22,16 @@
 <script>
   import AppHeader from '../template/AppHeader'
   import AppFooter from '../template/AppFooter'
-  import Alert from '../template/Alert'
   import Utils from '../../utils'
   import NProgress from 'nprogress'
+  import swal from 'sweetalert'
 
   export default {
 
     data () {
       return {
         newTask: null,
-        errors: null,
-        successMessage: null
+        errors: null
       }
     },
 
@@ -51,18 +49,18 @@
         window.$('.save-button').button('reset')
         NProgress.done()
         this.newTask = ''
-        this.successMessage = 'New task is created successfully'
+        swal('New task is created successfully')
       },
 
-      handleError (errors) {
+      handleError (response) {
         window.$('.save-button').button('reset')
         NProgress.done()
-        this.errors = Utils.getErrorArray(errors.data)
+        this.errors = Utils.getErrorArray(response.data.errors)
       }
     },
 
     components: {
-      AppHeader, AppFooter, Alert
+      AppHeader, AppFooter
     }
   }
 </script>

@@ -16,7 +16,12 @@
       })
 
       var token = window.localStorage.getItem('jwt-token')
-      if (token !== null && token !== 'undefined') {
+      if (
+        token !== null &&
+        token !== 'undefined' &&
+        !this.authenticated &&
+        this.$route.auth
+      ) {
         this.tryLogin()
       }
     },
@@ -42,18 +47,7 @@
 
       tryLogin () {
         this.$http.post('http://vueprojectserver.dev/api/me', {}).then((response) => this.login(response.data))
-        .catch((err) => {
-          if (err.data.error.toString() === 'token_expired') this.refreshUser()
-        })
-      },
-
-      refreshUser () {
-        this.$http.post('http://vueprojectserver.dev/api/refresh-token', {}).then((response) => {
-          if (response.headers('Authorization').startsWith('Bearer ')) {
-            window.localStorage.setItem('jwt-token', response.headers('Authorization').slice('Bearer '.length))
-            this.tryLogin()
-          }
-        }).catch((err) => { console.log(err) })
+        .catch(() => this.$router.go('/login'))
       }
     }
   }

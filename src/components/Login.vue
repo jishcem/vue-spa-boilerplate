@@ -58,6 +58,7 @@
         }).catch(() => {
           this.error = true
           window.$('.login-button').button('reset')
+          NProgress.done()
         })
       }
     }
