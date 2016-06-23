@@ -25,6 +25,9 @@ Vue.http.interceptors.push({
     return request
   },
   response (response) {
+    if (Number(response.status) === 401) {
+      this.$router.go('login')
+    }
     if (response.headers('Authorization') && response.headers('Authorization').startsWith('Bearer ')) {
       window.localStorage.setItem('jwt-token', response.headers('Authorization').slice('Bearer '.length))
     }

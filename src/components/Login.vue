@@ -48,6 +48,7 @@
           window.$('.login-button').button('reset')
           if (response.ok) {
             window.localStorage.setItem('jwt-token', response.data.token)
+            window.localStorage.setItem('user', JSON.stringify(response.data.user))
             this.$dispatch('userLoggedIn', response.data.user)
             NProgress.done()
             this.$router.go('/home')

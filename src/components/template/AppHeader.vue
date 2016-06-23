@@ -55,12 +55,3 @@
     height: 25px
     display: inline-block
 </style>
-<script>
-  export default {
-    data () {
-      return {
-        authenticated: false
-      }
-    }
-  }
-</script>

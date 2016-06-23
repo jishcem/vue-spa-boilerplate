@@ -18,9 +18,7 @@
       var token = window.localStorage.getItem('jwt-token')
       if (
         token !== null &&
-        token !== 'undefined' &&
-        !this.authenticated &&
-        this.$route.auth
+        token !== 'undefined'
       ) {
         this.tryLogin()
       }
@@ -43,9 +41,14 @@
       logout () {
         this.authenticated = false
         window.localStorage.removeItem('jwt-token')
+        window.localStorage.removeItem('user')
       },
 
       tryLogin () {
+        if (window.localStorage.getItem('user')) {
+          this.login(JSON.parse(window.localStorage.getItem('user')))
+          return
+        }
         this.$http.post('http://vueprojectserver.dev/api/me', {}).then((response) => this.login(response.data))
         .catch(() => this.$router.go('/login'))
       }
