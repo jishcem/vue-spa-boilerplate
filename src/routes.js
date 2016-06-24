@@ -1,6 +1,7 @@
 import Home from 'components/Home'
 import About from 'components/About'
 import Login from 'components/Login'
+import Register from 'components/Register'
 import Logout from 'components/Logout'
 import _404 from 'components/404'
 import Tasks from 'components/Task/Tasks'
@@ -21,6 +22,10 @@ export default function configRouter (router) {
     },
     '/about': {
       component: About,
+      auth: false
+    },
+    '/register': {
+      component: Register,
       auth: false
     },
     '/login': {

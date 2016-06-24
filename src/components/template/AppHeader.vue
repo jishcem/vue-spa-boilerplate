@@ -22,6 +22,9 @@
             <a v-link="{ path: '/task', activeClass: 'active' }">Tasks</a>
           </li>
           <li v-link-active v-show="! $root.authenticated">
+            <a v-link="{ path: '/register', activeClass: 'active' }">Register</a>
+          </li>
+          <li v-link-active v-show="! $root.authenticated">
             <a v-link="{ path: '/login', activeClass: 'active' }">Login</a>
           </li>
         </ul>
