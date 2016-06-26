@@ -4,7 +4,7 @@
       <div class="alert alert-danger errorList" v-if="errors">
         <div v-for="error in errors" role="alert">{{ error }}</div>
       </div>
-      <form v-on:submit.prevent="login" class="form-signin">
+      <form v-on:submit.prevent="register" class="form-signin">
         <h2 class="form-signin-heading">Register</h2>
         <label for="inputName" class="sr-only">Name</label>
         <input v-model="name" type="text" id="inputName" class="form-control" placeholder="Name" required>
