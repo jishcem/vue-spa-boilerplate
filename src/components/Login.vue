@@ -15,6 +15,7 @@
           <label>
             <input type="checkbox" value="remember-me"> Remember me
           </label>
+          <a v-link="{ path: '/forgot-password', activeClass: 'active' }">Forgot Passowrd?</a>
         </div>
         <button class="btn btn-lg btn-primary btn-block login-button" data-loading-text="Signing in..." type="submit">Sign in</button>
       </form>

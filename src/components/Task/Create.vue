@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="col-sm-10 col-sm-offset-1">
-      <div class="alert alert-danger errorList" v-if="errors">
-        <div v-for="error in errors" role="alert">{{ error }}</div>
-      </div>
+      <errors :errors="errors"></errors>
       <h3>Create New Task</h3>
       <form v-on:submit.prevent="create">
         <div class="form-group">
@@ -23,6 +21,7 @@
   import AppHeader from '../template/AppHeader'
   import AppFooter from '../template/AppFooter'
   import Utils from '../../utils'
+  import Errors from '../template/Errors.vue'
   import NProgress from 'nprogress'
   import swal from 'sweetalert'
 
@@ -60,7 +59,7 @@
     },
 
     components: {
-      AppHeader, AppFooter
+      AppHeader, AppFooter, Errors
     }
   }
 </script>
