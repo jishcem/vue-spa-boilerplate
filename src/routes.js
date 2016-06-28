@@ -4,6 +4,7 @@ import Login from 'components/Login'
 import Register from 'components/Register'
 import Logout from 'components/Logout'
 import ForgotPassword from 'components/ForgotPassword'
+import ResetPassword from 'components/ResetPassword'
 import _404 from 'components/404'
 import Tasks from 'components/Task/Tasks'
 import TaskList from 'components/Task/List'
@@ -35,6 +36,10 @@ export default function configRouter (router) {
     },
     '/forgot-password': {
       component: ForgotPassword,
+      auth: false
+    },
+    '/password/reset/:token': {
+      component: ResetPassword,
       auth: false
     },
     '/logout': {
