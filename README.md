@@ -2,7 +2,7 @@
 
 > Using Vue-cli's webpack template
 
-# API Code for this SPA - https://github.com/jishcem/laravel-spa-api
+### API Code for this SPA - https://github.com/jishcem/laravel-spa-api
 
 ## Features
   1. Registration
