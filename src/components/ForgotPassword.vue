@@ -37,7 +37,7 @@
       submit () {
         NProgress.start()
         window.$('.password-button').button('loading')
-        this.$http.post('http://vueprojectserver.dev/api/password', { email: this.email }).then((response) => {
+        this.$http.post(this.$root.serverUrl + 'password', { email: this.email }).then((response) => {
           window.$('.password-button').button('reset')
           console.log(response)
           NProgress.done()

@@ -5,6 +5,7 @@
 </template>
 <style src="./styles/all.sass" lang="sass"></style>
 <script>
+  import {site} from '../config/index'
   export default {
     ready () {
       this.$on('userLoggedIn', (user) => {
@@ -28,7 +29,7 @@
       return {
         user: null,
         authenticated: null,
-        serverUrl: 'http://vueprojectserver.dev/api/'
+        serverUrl: site.url + '/api/'
       }
     },
 
@@ -49,7 +50,7 @@
           this.login(JSON.parse(window.localStorage.getItem('user')))
           return
         }
-        this.$http.post('http://vueprojectserver.dev/api/me', {}).then((response) => this.login(response.data))
+        this.$http.post(this.serverUrl + 'me', {}).then((response) => this.login(response.data))
         .catch(() => this.$router.go('/login'))
       }
     }

@@ -45,7 +45,7 @@
       login () {
         NProgress.start()
         window.$('.login-button').button('loading')
-        this.$http.post('http://vueprojectserver.dev/api/login', { email: this.email, password: this.password }).then((response) => {
+        this.$http.post(this.$root.serverUrl + 'login', { email: this.email, password: this.password }).then((response) => {
           window.$('.login-button').button('reset')
           if (response.ok) {
             window.localStorage.setItem('jwt-token', response.data.token)

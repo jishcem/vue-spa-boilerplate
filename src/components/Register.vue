@@ -45,7 +45,7 @@
       register () {
         NProgress.start()
         window.$('.register-button').button('loading')
-        this.$http.post('http://vueprojectserver.dev/api/register', { name: this.name, email: this.email, password: this.password }).then((response) => {
+        this.$http.post(this.$root.serverUrl + 'register', { name: this.name, email: this.email, password: this.password }).then((response) => {
           window.$('.register-button').button('reset')
           if (response.ok) {
             window.localStorage.setItem('jwt-token', response.data.token)
